@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">
+   <title><?php echo "Prognosis - ".install_config; ?></title>
+<?php foreach($this->head_css as $style) { if($style['media']) { $style['media'] = " media=\"".$style['media']."\""; } echo "   <link rel=\"".$style['rel']."\" type=\"text/css\" href=\"/theme/css/".$style['path'].".css\"".$style['media'].">\n"; } ?>
+<?php foreach($this->head_js['path'] as $link) { echo "   <script type=\"text/javascript\" src=\"/theme/js/".$link.".js\"></script>\n"; } ?>
+   <script type="text/javascript">
+      function jawascript() {
+<?php foreach($this->head_js['init'] as $javascript) { if($javascript) { echo "         ".$javascript."\n"; } } ?>
+         return null;
+      }
+   </script>
+</head>

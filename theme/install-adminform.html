@@ -1,0 +1,43 @@
+
+   <div id="main">
+      <div id="install_form">
+         <form method="post" action="/install.html" class="slidein" id="animatedForm">
+            <div class="db_explanation">
+               <h2><?php echo install_admin_explanation; ?></h2>
+<?php
+if($this->variable) {
+   switch($this->variable) {
+      case 0: 
+         $this->variable = err_privatenameexists;
+         break; 
+      case 1:
+         $this->variable = err_publicnameexists;
+         break;
+      case 2:
+         $this->variable = err_bothnamesexist;
+         break;
+      case 3:
+         $this->variable = err_passdiff."!";
+         break;
+      default:
+         $this->variable = "";
+   }
+   echo "               <p class=\"form_error\">".$this->variable."</p>\n";
+}
+?>
+               <hr>
+               <ul class="final">
+                  <li><label for="auth_name"><?php echo form_authname; ?></label></li>
+                  <li><input type="text" name="auth_name" id="auth_name" maxlength="18" pattern="\w{3,18}" required> <div class="tooltip"><img class="tooltip" src="/theme/img/help.png" alt=" ? " width="16" height="16"><div class="tooltipbox"><p><?php echo form_authname_tip; ?></p></div></div></li>
+                  <li><label for="public_name"><?php echo form_privatename; ?></label></li>
+                  <li><input type="text" name="public_name" id="public_name" maxlength="12" pattern="\w{2,12}" required> <div class="tooltip"><img class="tooltip" src="/theme/img/help.png" alt=" ? " width="16" height="16"><div class="tooltipbox"><p><?php echo form_privatename_tip; ?></p></div></div></li>
+                  <li><label for="pass1"><?php echo form_pass1; ?></label></li>
+                  <li><input type="password" name="pass1" id="pass1" maxlength="18" pattern=".{6,18}" required> <img class="psw" src="/theme/img/visible.png" alt="show psw" width="16" height="16" onClick="show_hide_psw(this)"> <div class="tooltip"><img class="tooltip" src="/theme/img/help.png" alt=" ? " width="16" height="16"><div class="tooltipbox"><p><?php echo form_pass1_tip; ?></p></div></div></li>
+                  <li><label for="pass2"><?php echo form_pass2; ?></label></li>
+                  <li><input type="password" name="pass2" id="pass2" maxlength="18" pattern=".{6,18}" required> <img class="psw" src="/theme/img/visible.png" alt="show psw" width="16" height="16" onClick="show_hide_psw(this)"> <div class="tooltip"><img class="tooltip" src="/theme/img/help.png" alt=" ? " width="16" height="16"><div class="tooltipbox"><p><?php echo form_pass2_tip; ?></p></div></div></li>
+                  <li><input type="submit" value="<?php echo form_send; ?>"></li>
+               </ul>
+            </div>
+         </form>
+      </div>
+   </div>

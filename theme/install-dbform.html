@@ -1,0 +1,31 @@
+
+   <div id="main">
+      <div id="install_form">
+         <form method="post" action="/install.html" class="slidein" id="animatedForm">
+            <div class="db_explanation">
+               <h2><?php echo install_sitetitle_explanation; ?></h2>
+               <hr>
+               <ul>
+                  <li><label for="site_title"><?php echo install_sitetitle; ?></label></li>
+                  <li><input type="text" name="site_title" id="site_title" maxlength="16" pattern="^\w{1,16}$" required> <div class="tooltip"><img class="tooltip" src="/theme/img/help.png" alt=" ? " width="16" height="16"><div class="tooltipbox"><p><?php echo install_sitetitle_tip; ?></p></div></div></li>
+               </ul>
+               <h2><?php echo install_db_explanation; ?></h2>
+               <p><?php echo install_db_descr; ?></p>
+               <hr>
+               <ul class="final">
+                  <li><label for="db_host"><?php echo install_askdbhost; ?></label></li>
+                  <li><input type="text" name="db_host" id="db_host" maxlength="15" pattern="^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?\.)(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?\.)(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?\.)(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))|(?:localhost)|(?:Localhost)|(?:LOCALHOST)$" required> <div class="tooltip"><img class="tooltip" src="/theme/img/help.png" alt=" ? " width="16" height="16"><div class="tooltipbox"><p><?php echo install_askdbhost_tip; ?></p></div></div></li>
+                  <li><label for="db_name"><?php echo install_askdbname; ?></label></li>
+                  <li><input type="text" name="db_name" id="db_name" maxlength="32" pattern="^\w{1,32}$" required> <div class="tooltip"><img class="tooltip" src="/theme/img/help.png" alt=" ? " width="16" height="16"><div class="tooltipbox"><p><?php echo install_askdbname_tip; ?></p></div></div></li>
+                  <li><label for="db_user"><?php echo install_askdbuser; ?></label></li>
+                  <li><input type="text" name="db_user" id="db_user" maxlength="32" pattern="^\w{1,32}$" required> <div class="tooltip"><img class="tooltip" src="/theme/img/help.png" alt=" ? " width="16" height="16"><div class="tooltipbox"><p><?php echo install_askdbuser_tip; ?></p></div></div></li>
+                  <li><label for="pass1"><?php echo install_askdbpass; ?></label></li>
+                  <li><input type="password" name="pass1" id="pass1" required> <img class="psw" src="/theme/img/visible.png" alt="show psw" width="16" height="16" onClick="show_hide_psw(this)"></li>
+                  <li><label for="pass2"><?php echo install_askdbpass2; ?></label></li>
+                  <li><input type="password" name="pass2" id="pass2" required> <img class="psw" src="/theme/img/visible.png" alt="show psw" width="16" height="16" onClick="show_hide_psw(this)"></li>
+                  <li><input type="submit" value="<?php echo form_send; ?>"></li>
+               </ul>
+            </div>
+         </form>
+      </div>
+   </div>

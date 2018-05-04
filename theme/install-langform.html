@@ -1,0 +1,27 @@
+
+   <div id="main">
+      <div id="install_form">
+         <form method="post" action="/install.html" class="slidein" id="animatedForm">
+            <div class="welcome">
+               <h1><?php echo install_welcome; ?></h1>
+               <h2><?php echo install_explanation; ?></h2>
+               <hr>
+               <ul class="final">
+                  <li><label for="default_lang"><?php echo install_lang; ?></label></li>
+                  <li>
+                     <select name="default_lang" required>
+<?php foreach($this->getLanguages() as $value) { echo "                        <option value=\"".$value."\">".Locale::getDisplayLanguage($value, $value)." - ".Locale::getDisplayRegion($value, $value)."</option>\n"; } ?>
+                     </select>
+                  </li>
+                  <li><label for="default_timezone"><?php echo install_timezone; ?></label></li>
+                  <li id="li_default_timezone">
+                     <select name="default_timezone" id="select_default_timezone" required>
+<?php foreach(DateTimeZone::listIdentifiers() as $value) { echo "                        <option value=\"".$value."\">".$value."</option>\n"; } ?>
+                     </select>
+                  </li>
+                  <li><input type="submit" value="<?php echo form_send; ?>"></li>
+               </ul>
+            </div>
+         </form>
+      </div>
+   </div>
