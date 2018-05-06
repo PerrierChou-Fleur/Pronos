@@ -20,6 +20,7 @@ define("err_cannotloadfile", "Can't load file");
 define("err_undefinedlang", "Undefined language");
 define("err_undefinedtimezone", "Undefined timezone");
 define("err_invalidfields", "Invalid field(s)");
+define("err_cannotlogtodb", "Can't connect to the database, please check the datas entered.");
 define("err_bothnamesexist", "Both names are already used, please choose others.");
 define("err_privatenameexists", "Login ID is already used, please choose another one.");
 define("err_publicnameexists", "Public ID is already used, please choose another one.");
@@ -45,8 +46,21 @@ define("install_askdbuser_tip", "User name of the databse which has to connect, 
 define("install_askdbpass", "What is the password of the database which the website has to connect?");
 define("install_askdbpass2", "Confirm the password:");
 define("install_admin_explanation", "Create your admin account.");
-
-define("install_success", "Setup completed!");
+define("install_register_explanation", "Set the registration options.");
+define("install_yes", "Yes");
+define("install_no", "No");
+define("install_regvalidation", "Do you want to enable registration validation by an administrator?");
+define("install_regvalidation_tip", "Each user will have to wait after his registration that his account is activated by an administrator to be able to use it.");
+define("install_regprivatekey", "Do you want to activate registration only by invitation?");
+define("install_regprivatekey_tip", "Only users who have received the registration key will be able to register.");
+define("install_regrecaptcha", "Do you want to activate the reCAPTCHA v2 verification system?");
+define("install_regrecaptcha_tip", "he <a href=\"https://www.google.com/recaptcha/\">reCAPTCHA v2</a> system verifies that the user is a person and not a robot.");
+define("install_regrecaptcha_publickey", "Your public key reCAPTCHA v2:");
+define("install_regrecaptcha_publickey_tip", "Please enter the reCAPTCHA v2 public key provided by Google for your domain.");
+define("install_regrecaptcha_privatekey", "Your reCAPTCHA v2 private key:");
+define("install_regrecaptcha_privatekey_tip", "Please enter the reCAPTCHA v2 private key provided by Google for your domain.");
+define("install_completed_explanation", "Setup successfully completed!");
+define("install_completed_descr", "The setup is now completed, you will not be able to access this file unless you delete the file /config/config.php. You can now access <a href=\"/\">your website</a>.");
 
 //forms
 define("form_send", "Send   >");

@@ -1,0 +1,24 @@
+
+   <div id="main">
+      <div id="install_form">
+         <form method="post" action="/install.html" class="slidein" id="animatedForm">
+            <div class="install_explanation">
+               <h2><?php echo install_register_explanation; ?></h2>
+               <hr>
+               <ul class="final">
+                  <li><label for="reg_validation"><?php echo install_regvalidation; ?></label> <div class="tooltip"><img class="tooltip" src="/theme/img/help.png" alt=" ? " width="16" height="16"><div class="tooltipbox"><p><?php echo install_regvalidation_tip; ?></p></div></div></li>
+                  <li><input type="radio" name="reg_validation" value="1" id="reg_validation_yes" checked> <?php echo install_yes; ?><input type="radio" name="reg_validation" value="0" id="reg_validation_no"> <?php echo install_no; ?></li>
+                  <li><label for="reg_privatekey"><?php echo install_regprivatekey; ?></label> <div class="tooltip"><img class="tooltip" src="/theme/img/help.png" alt=" ? " width="16" height="16"><div class="tooltipbox"><p><?php echo install_regprivatekey_tip; ?></p></div></div></li>
+                  <li><input type="radio" name="reg_privatekey" value="1" id="reg_privatekey_yes" checked> <?php echo install_yes; ?><input type="radio" name="reg_privatekey" value="0" id="reg_privatekey_no"> <?php echo install_no; ?></li>
+                  <li><label for="reg_recaptcha"><?php echo install_regrecaptcha; ?></label> <div class="tooltip"><img class="tooltip" src="/theme/img/help.png" alt=" ? " width="16" height="16"><div class="tooltipbox"><p><?php echo install_regrecaptcha_tip; ?></p></div></div></li>
+                  <li><input type="radio" name="reg_recaptcha" value="1" id="reg_recaptcha_yes" checked> <?php echo install_yes; ?><input type="radio" name="reg_recaptcha" value="0" id="reg_recaptcha_no"> <?php echo install_no; ?></li>
+                  <li><label for="reg_recaptcha_publickey"><?php echo install_regrecaptcha_publickey; ?></label></li>
+                  <li><input type="text" name="reg_recaptcha_publickey" id="reg_recaptcha_publickey" size="40" maxlength="40" pattern="^[-a-zA-Z0-9]{40}$"> <div class="tooltip"><img class="tooltip" src="/theme/img/help.png" alt=" ? " width="16" height="16"><div class="tooltipbox"><p><?php echo install_regrecaptcha_publickey_tip; ?></p></div></div></li>
+                  <li><label for="reg_recaptcha_privatekey"><?php echo install_regrecaptcha_privatekey; ?></label></li>
+                  <li><input type="text" name="reg_recaptcha_privatekey" id="reg_recaptcha_privatekey" size="40" maxlength="40" pattern="^[-a-zA-Z0-9]{40}$"> <div class="tooltip"><img class="tooltip" src="/theme/img/help.png" alt=" ? " width="16" height="16"><div class="tooltipbox"><p><?php echo install_regrecaptcha_privatekey_tip; ?></p></div></div></li>
+                  <li><input type="submit" value="<?php echo form_send; ?>"></li>
+               </ul>
+            </div>
+         </form>
+      </div>
+   </div>

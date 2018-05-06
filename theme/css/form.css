@@ -4,19 +4,20 @@ div.welcome {
    width: 100%;
    text-align: center;
 }
-div.db_explanation {
+div.install_explanation {
    width: 100%;
    text-align: center;
 }
 div#install_form {
-   width: 100%;
+   width: 96%;
    min-width: 320px;
+   margin: auto;
    text-align: center;
 }
 @media only screen and (min-width: 600px) {
    div#install_form {
       width: 100%;
-      min-width: 320px;
+      min-width: 400px;
       padding-left: calc(0.2 * (100% - 600px));
       text-align: center;
    }
@@ -47,14 +48,17 @@ form.slidein {
    max-width: 600px;
    margin-left: 0;
    animation: slidein 500ms ease-out 0s 1 normal forwards running;
-   overflow: hidden;
 }
 form.slideout {
    width: 100%;
    max-width: 600px;
    margin-left: 0;
-   animation: slideout 500ms ease-out 0s 1 normal forwards running;
-   overflow: hidden;
+}
+div.slidein {
+   width: 100%;
+   max-width: 600px;
+   margin-left: 0;
+   animation: slidein 500ms ease-out 0s 1 normal forwards running;
 }
 form > div > ul {
    list-style-type: none;
@@ -73,14 +77,24 @@ form > div > ul > li:last-child {
 form > div > ul.final > li:last-child {
    margin: 40px 0px 40px 0px;
 }
-input {
+input[type="text"] {
    border: 1px solid #CCCCCC;
    background-color: #F3F3F3;
    box-shadow: 0px 2px 4px 0px #999999;
    border-radius: 3px;
-   width: 180px;
+   min-width: 180px;
 }
-input:last-child {
+input[type="radio"] {
+   border: 1px solid #CCCCCC;
+   background-color: #F3F3F3;
+   box-shadow: 0px 2px 4px 0px #999999;
+   border-radius: 3px;
+   width: 16px;
+}
+input[type="radio"]:nth-child(even) {
+   margin-left: 30px;
+}
+input[type="submit"] {
    border: 1px solid #3CBC8D;
    background-color: #3CBC8D;
    box-shadow: 0px 2px 4px 0px #999999;

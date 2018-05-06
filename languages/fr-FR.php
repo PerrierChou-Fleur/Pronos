@@ -20,6 +20,7 @@ define("err_cannotloadfile", "Impossible de charger le fichier ");
 define("err_undefinedlang", "Langue non définie ");
 define("err_undefinedtimezone", "Fuseau horaire non défini ");
 define("err_invalidfields", "Champ(s) invalide(s) ");
+define("err_cannotlogtodb", "Impossible d'établir la connexion à la base de données, veuillez vérifier les données saisies.");
 define("err_bothnamesexist", "Les deux noms sont déjà utilisés, veuillez en choisir d'autres.");
 define("err_privatenameexists", "L'identifiant de connexion est déjà utilisé, veuillez en choisir un autre.");
 define("err_publicnameexists", "L'identifiant publique est déjà utilisé, veuillez en choisir un autre.");
@@ -45,8 +46,21 @@ define("install_askdbuser_tip", "Utilisateur de la base de données à laquelle 
 define("install_askdbpass", "Quel est le mot de passe de la base de données à laquelle le site doit se connecter ?");
 define("install_askdbpass2", "Confirmez le mot de passe :");
 define("install_admin_explanation", "Créez votre compte admin.");
-
-define("install_success", "Installation terminée avec succès !");
+define("install_register_explanation", "Paramétrez les options d'inscription.");
+define("install_yes", "Oui");
+define("install_no", "Non");
+define("install_regvalidation", "Voulez-vous activer la validation des inscriptions par un administrateur ?");
+define("install_regvalidation_tip", "Chaque utilisateur devra attendre après son inscription que son compte soit activé par un administrateur pour pouvoir l'utilisier.");
+define("install_regprivatekey", "Voulez-vous activer l'inscription uniquement sur invitation ?");
+define("install_regprivatekey_tip", "Seuls les utilisateurs ayant reçu la clé d'inscription pourront s'inscrire.");
+define("install_regrecaptcha", "Voulez-vous activer le système de vérification reCAPTCHA v2 ?");
+define("install_regrecaptcha_tip", "Le système <a href=\"https://www.google.com/recaptcha/\">reCAPTCHA v2</a> permet de vérifier que l'utilisateur est une personne et non un robot.");
+define("install_regrecaptcha_publickey", "Votre clé publique reCAPTCHA v2 :");
+define("install_regrecaptcha_publickey_tip", "Veuillez renseigner la clé publique reCAPTCHA v2 fournie par Google pour votre domaine.");
+define("install_regrecaptcha_privatekey", "Votre clé privée reCAPTCHA v2 :");
+define("install_regrecaptcha_privatekey_tip", "Veuillez renseigner la clé privée reCAPTCHA v2 fournie par Google pour votre domaine.");
+define("install_completed_explanation", "Installation terminée avec succès !");
+define("install_completed_descr", "L'installation est maintennat terminée, vous ne pourrez plus accèder à ce fichier à moins de supprimer le fichier /config/config.php. Vous pouvez maintenant accèder à <a href=\"/\">votre site</a>.");
 
 //formulaires
 define("form_send", "Envoyer  >");

@@ -166,7 +166,7 @@ class userManager {
       $this->userInfos['pass'] = postManager::getPost('pass1', '/^.{6,18}$/');
       $this->userInfos['pass2'] = postManager::getPost('pass2', '/^.{6,18}$/');
       $verif = array_filter($this->userInfos);
-      if(count($verif) == count($this->userInfos) && $this->userInfos['pass'] == $this->userInfos['pass2']) {
+      if(count($verif) == count($this->userInfos) && count($verif) > 0 && $this->userInfos['pass'] == $this->userInfos['pass2']) {
          unset($this->userInfos['pass2']);
          try {
             $db = new PDO('mysql:host='.db_host.';dbname='.db_name, db_user, db_pass);

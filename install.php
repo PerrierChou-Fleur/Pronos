@@ -3,23 +3,14 @@
 
 require_once('classes/general.php');
 require_once('classes/file_manager.php');
-require_once('classes/form_manager.php');
-
-function success() {
-   echo install_success;
-}
-
-function lock() {
-   header('HTTP/1.0 404 Not Found');
-   return null;
-}
+require_once('classes/install_manager.php');
 
 function installLoop($install_cfg) {
    require_once('config/config.php');
    $step = $install_cfg->fileParsing(null, 'constant', "install");
    switch ((int)$step[1]) {
       case 1:
-         $lang_form = new formManager('lang/timezone');
+         $lang_form = new installManager('lang/timezone');
          if(!$lang_form->getLang() || !$lang_form->getTimezone()) {
             return $lang_form->askLangTimezone();
          } else {
@@ -32,9 +23,11 @@ function installLoop($install_cfg) {
          header('Location: install.html');
          break;
       case 2:
-         $db_form = new formManager('dbinfos');
+         $db_form = new installManager('dbinfos');
          if(!$db_form->getDbInfos()) {
             return $db_form->askDbInfos();
+         } elseif($db_form->getDbInfos() instanceof PDOException) {
+            return $db_form->askDbInfos($db_form->dbInfos);
          } else {
             $install_cfg->fileUpdate('comment', "site title");
             $install_cfg->fileUpdate('constant', "site_title", $db_form->dbInfos['site_title']);
@@ -68,7 +61,7 @@ function installLoop($install_cfg) {
          installLoop($install_cfg);
          break;
       case 4:
-         $admin_form = new formManager('createAdmin');
+         $admin_form = new installManager('createAdmin');
          if(!$admin_form->getAdminInfos()) {
             return $admin_form->askAdminInfos();
          } else {
@@ -77,12 +70,32 @@ function installLoop($install_cfg) {
          installLoop($install_cfg);
          break;
       case 5:
-         return success();
+         $register_form = new installManager('registerInfos');
+         if(!$register_form->getRegisterInfos()) {
+            return $register_form->askRegisterInfos();
+         } else {
+            $install_cfg->fileUpdate('comment', "registration params");
+            $install_cfg->fileUpdate('constant', "reg_validation", $register_form->registerInfos['validation']);
+            $key = new DateTime("now");
+            $install_cfg->fileUpdate('constant', "reg_privatekey", addcslashes(password_hash($key->format('YFjlGisu'), PASSWORD_DEFAULT), '$'));
+            $install_cfg->fileUpdate('constant', "reg_recaptcha", $register_form->registerInfos['recaptcha']);
+            if($register_form->registerInfos['recaptcha']) {
+               $install_cfg->fileUpdate('constant', "recaptcha_publickey", $register_form->registerInfos['recaptcha_publickey']);
+               $install_cfg->fileUpdate('constant', "recaptcha_privatekey", $register_form->registerInfos['recaptcha_privatekey']);
+            }
+            $install_cfg->fileUpdate('constant', 'install', 6);
+         }
          installLoop($install_cfg);
          break;
-      case "locked":
-         return lock();
+      case 6:
+         $install_completed = new installManager('completed');
+         $install_completed->askSetupCompleted();
+         $install_cfg->fileUpdate('constant', 'install', "locked");
          break;
+      case "locked":
+         header('HTTP/1.0 404 Not Found');
+         require_once('error404.php');
+         exit;
       default:
          throw new userErrorManager(err_cannotinstall."!", 2);
    }
