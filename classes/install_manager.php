@@ -7,6 +7,10 @@
        //askDbInfos
        //getDbInfos
        //askAdminInfos
+       //getAdminInfos
+       //askRegisterInfos
+       //getRegisterInfos
+       //askSetupCompleted
 
 class installManager extends viewManager {
 
@@ -42,7 +46,7 @@ class installManager extends viewManager {
       $this->variable = null;
       $this->head_path = 'notitle-head';
       $this->head_title = '';
-      $this->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'form', 'rel'=>'stylesheet', 'media'=>'')];
+      $this->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'form-slidein', 'rel'=>'stylesheet', 'media'=>'')];
       $this->head_js = array('path'=>['animation_form', 'timezone_form'], 'init'=>['animationForm();', 'timezone();']);
       return $this->createView('install-header', 'install-langform', 'footer');
    }
@@ -76,7 +80,7 @@ class installManager extends viewManager {
       $this->variable = $var;
       $this->head_path = 'notitle-head';
       $this->head_title = '';
-      $this->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'form', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'large-tooltip', 'rel'=>'stylesheet', 'media'=>'')];
+      $this->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'form-slidein', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'large-tooltip', 'rel'=>'stylesheet', 'media'=>'')];
       $this->head_js = array('path'=>['animation_form', 'pass_form'], 'init'=>['animationForm();']);
       return $this->createView('install-header', 'install-dbform', 'footer');
    }
@@ -88,12 +92,12 @@ class installManager extends viewManager {
       $this->dbInfos['db_user'] = postManager::getPost('db_user', '/^\w{1,32}$/');
       $this->dbInfos['db_pass'] = postManager::getPost('pass1', '/.*/');
       $this->dbInfos['pass2'] = postManager::getPost('pass2', '/.*/');
-      $verif = array_filter($this->dbInfos, function($val) { if($val === false) { return true; } else { return false; } });
+      $verif = array_keys($this->dbInfos, false, true);
       if(count($verif) == count($this->dbInfos)) {
          $this->dbInfos = [];
          return false;
       } elseif(count($verif) > 0) {
-         $fields = implode(", ", array_keys($verif));
+         $fields = implode(", ", $verif);
          throw new userErrorManager(err_invalidfields.": ".$fields, 2);
       } elseif($this->dbInfos['db_pass'] != $this->dbInfos['pass2']) {
          throw new userErrorManager(err_passdiff."!", 1);
@@ -117,7 +121,7 @@ class installManager extends viewManager {
       }
       $this->head_path = 'head';
       $this->head_title = install_config;
-      $this->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'form', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'large-tooltip', 'rel'=>'stylesheet', 'media'=>'')];
+      $this->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'form-slidein', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'large-tooltip', 'rel'=>'stylesheet', 'media'=>'')];
       $this->head_js = array('path'=>['animation_form', 'pass_form'], 'init'=>['animationForm();']);
       return $this->createView('install-header', 'install-adminform', 'footer');
    }
@@ -136,7 +140,7 @@ class installManager extends viewManager {
    public function askRegisterInfos() {
       $this->head_path = 'head';
       $this->head_title = install_config;
-      $this->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'form', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'large-tooltip', 'rel'=>'stylesheet', 'media'=>'')];
+      $this->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'form-slidein', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'large-tooltip', 'rel'=>'stylesheet', 'media'=>'')];
       $this->head_js = array('path'=>['animation_form'], 'init'=>['animationForm();']);
       return $this->createView('install-header', 'install-registerform', 'footer');
    }
@@ -148,12 +152,15 @@ class installManager extends viewManager {
       if($this->registerInfos['recaptcha']) {
          $this->registerInfos['recaptcha_publickey'] = postManager::getPost('reg_recaptcha_publickey', '/^[-a-z0-9]{40}$/i');
          $this->registerInfos['recaptcha_privatekey'] = postManager::getPost('reg_recaptcha_privatekey', '/^[-a-z0-9]{40}$/i');
+      } else {
+         $this->registerInfos['recaptcha_publickey'] = postManager::getPost('reg_recaptcha_publickey', '//');
+         $this->registerInfos['recaptcha_privatekey'] = postManager::getPost('reg_recaptcha_privatekey', '//');
       }
-      $verif = array_filter($this->registerInfos);
-      if(count($verif) == count($this->registerInfos) && count($verif) > 0) {
+      $verif = array_keys($this->registerInfos, false, true);
+      if(count($verif) == 0 && count($this->registerInfos) > 0) {
          return true;
-      } elseif(count($verif) > 0) {
-         $fields = implode(", ", array_keys($verif));
+      } elseif(count($verif) < count($this->registerInfos)) {
+         $fields = implode(", ", $verif);
          throw new userErrorManager(err_invalidfields.": ".$fields, 2);
       } else {
          $this->registerInfos = [];
@@ -164,7 +171,7 @@ class installManager extends viewManager {
    public function askSetupCompleted() {
       $this->head_path = 'head';
       $this->head_title = install_config;
-      $this->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'form', 'rel'=>'stylesheet', 'media'=>'')];
+      $this->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'form-slidein', 'rel'=>'stylesheet', 'media'=>'')];
       $this->head_js = array('path'=>[], 'init'=>[]);
       return $this->createView('install-header', 'install-completed', 'footer');
    }

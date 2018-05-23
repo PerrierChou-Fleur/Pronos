@@ -46,7 +46,7 @@ function installLoop($install_cfg) {
             $db = new PDO('mysql:host='.db_host.';dbname='.db_name, db_user, db_pass);
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $req = $db->query('
-               CREATE TABLE IF NOT EXISTS Users (user_id int unsigned NOT NULL AUTO_INCREMENT, user_private_name varchar(18) NOT NULL, user_public_name varchar(12) NOT NULL, user_lang varchar(15), user_timezone varchar(255), user_pass varchar(255) NOT NULL, user_active boolean NOT NULL, PRIMARY KEY (user_id));
+               CREATE TABLE IF NOT EXISTS Users (user_id int unsigned NOT NULL AUTO_INCREMENT, user_private_name varchar(18) NOT NULL, user_public_name varchar(12) NOT NULL, user_lang varchar(15), user_timezone varchar(255), user_pass varchar(255) NOT NULL, user_active boolean NOT NULL, PRIMARY KEY (user_id), CONSTRAINT unique_user UNIQUE (user_private_name, user_public_name));
                CREATE TABLE IF NOT EXISTS Admins (admin_id int unsigned NOT NULL, PRIMARY KEY (admin_id));
                CREATE TABLE IF NOT EXISTS Tournaments (tournament_id int unsigned NOT NULL AUTO_INCREMENT, tournament_name varchar(18) NOT NULL, tournament_model varchar(18) NOT NULL, tournament_access tinyint unsigned NOT NULL, tournament_pass varchar(255) NOT NULL, tournament_owner int unsigned NOT NULL, PRIMARY KEY (tournament_id), CONSTRAINT fk_owner_id FOREIGN KEY (tournament_owner) REFERENCES Users(user_id));
                CREATE TABLE IF NOT EXISTS Subscriptions (sub_id int unsigned NOT NULL AUTO_INCREMENT, sub_user int unsigned NOT NULL, sub_tournament int unsigned NOT NULL, PRIMARY KEY (sub_id), CONSTRAINT fk_user_id FOREIGN KEY (sub_user) REFERENCES Users(user_id), CONSTRAINT fk_tournament_id FOREIGN KEY (sub_tournament) REFERENCES Tournaments(tournament_id));
@@ -76,13 +76,12 @@ function installLoop($install_cfg) {
          } else {
             $install_cfg->fileUpdate('comment', "registration params");
             $install_cfg->fileUpdate('constant', "reg_validation", $register_form->registerInfos['validation']);
+            $install_cfg->fileUpdate('constant', "reg_invitekey", $register_form->registerInfos['private_key']);
             $key = new DateTime("now");
             $install_cfg->fileUpdate('constant', "reg_privatekey", addcslashes(password_hash($key->format('YFjlGisu'), PASSWORD_DEFAULT), '$'));
             $install_cfg->fileUpdate('constant', "reg_recaptcha", $register_form->registerInfos['recaptcha']);
-            if($register_form->registerInfos['recaptcha']) {
-               $install_cfg->fileUpdate('constant', "recaptcha_publickey", $register_form->registerInfos['recaptcha_publickey']);
-               $install_cfg->fileUpdate('constant', "recaptcha_privatekey", $register_form->registerInfos['recaptcha_privatekey']);
-            }
+            $install_cfg->fileUpdate('constant', "recaptcha_publickey", $register_form->registerInfos['recaptcha_publickey']);
+            $install_cfg->fileUpdate('constant', "recaptcha_privatekey", $register_form->registerInfos['recaptcha_privatekey']);
             $install_cfg->fileUpdate('constant', 'install', 6);
          }
          installLoop($install_cfg);
@@ -90,6 +89,9 @@ function installLoop($install_cfg) {
       case 6:
          $install_completed = new installManager('completed');
          $install_completed->askSetupCompleted();
+         $install_cfg->fileUpdate('constant', 'max_error_lvl_show', "1");
+         $install_cfg->findPosition('comment', 'errors param \/1: user \/2: admin \/3: developper');
+         $install_cfg->fileUpdate('method', 'ini_set', ['display_errors', '0'], true);
          $install_cfg->fileUpdate('constant', 'install', "locked");
          break;
       case "locked":
@@ -110,6 +112,6 @@ try {
    }
    installLoop($install_cfg);
 } catch(userErrorManager $e) {
-   $e->createView();
+   $e->createErrorView();
 }
 ?>

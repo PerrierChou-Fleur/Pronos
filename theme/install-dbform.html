@@ -21,9 +21,9 @@
                   <li><label for="db_user"><?php echo install_askdbuser; ?></label></li>
                   <li><input type="text" name="db_user" id="db_user" maxlength="32"<?php if($this->variable) { echo " value=\"".$this->variable['db_user']."\""; } ?> pattern="^\w{1,32}$" required> <div class="tooltip"><img class="tooltip" src="/theme/img/help.png" alt=" ? " width="16" height="16"><div class="tooltipbox"><p><?php echo install_askdbuser_tip; ?></p></div></div></li>
                   <li><label for="pass1"><?php echo install_askdbpass; ?></label></li>
-                  <li><input type="password" name="pass1" id="pass1"> <img class="psw" src="/theme/img/visible.png" alt="show psw" width="16" height="16" onClick="show_hide_psw(this)"></li>
+                  <li><input type="password" name="pass1" id="pass1"><img class="psw" src="/theme/img/visible.png" alt="show psw" width="16" height="16" onClick="show_hide_psw(this)"></li>
                   <li><label for="pass2"><?php echo install_askdbpass2; ?></label></li>
-                  <li><input type="password" name="pass2" id="pass2"> <img class="psw" src="/theme/img/visible.png" alt="show psw" width="16" height="16" onClick="show_hide_psw(this)"></li>
+                  <li><input type="password" name="pass2" id="pass2"><img class="psw" src="/theme/img/visible.png" alt="show psw" width="16" height="16" onClick="show_hide_psw(this)"></li>
                   <li><input type="submit" value="<?php echo form_send; ?>"></li>
                </ul>
             </div>

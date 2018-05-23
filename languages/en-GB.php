@@ -19,12 +19,14 @@ define("err_noheadpath", "No head path has been defined before creating the view
 define("err_cannotloadfile", "Can't load file");
 define("err_undefinedlang", "Undefined language");
 define("err_undefinedtimezone", "Undefined timezone");
+define("err_activevalue", "Invalid activation value");
 define("err_invalidfields", "Invalid field(s)");
 define("err_cannotlogtodb", "Can't connect to the database, please check the datas entered.");
 define("err_bothnamesexist", "Both names are already used, please choose others.");
 define("err_privatenameexists", "Login ID is already used, please choose another one.");
 define("err_publicnameexists", "Public ID is already used, please choose another one.");
 define("err_passdiff", "The password doesn't match with the confirmation");
+define("err_invitekey", "Sorry you must have the registration key to register.");
 
 //setup
 define("install_config", "Setup");
@@ -72,4 +74,10 @@ define("form_pass1", "Choose a password:");
 define("form_pass1_tip", "Your password, from 6 to 18 characters (all characters are allowed).");
 define("form_pass2", "Confirm your password:");
 define("form_pass2_tip", "Enter your password again to confirm that you have not made a typing error.");
+
+//header
+define("header_title", "Welcome on the website of the 2018 CdM Prognoses");
+
+//index.php
+define("index_title", "Home");
 ?>

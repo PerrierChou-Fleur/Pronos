@@ -4,16 +4,18 @@
        //__construct
        //createMessage
        //getMyMessage
-       //createView
+       //createErrorView
+
+   /* class userManager */
+       //__construct
+       //checkIsLoggedIn
+       //createUser
 
    /* class languageManager */
        //__construct
        //getFileName
        //getLanguages
        //defineLanguage
-
-   /* class userManager */
-       //createUser
 
    /* class datetimeManager */
        //__construct
@@ -25,11 +27,6 @@
        //
 
    /* class viewManager */
-       //__construct
-       //defineHeadPath
-       //defineHeadTitle
-       //defineHeadCss
-       //defineHeadJs
        //createView
 
 class userErrorManager extends Exception {
@@ -74,7 +71,7 @@ class userErrorManager extends Exception {
       }
    }
 
-   public function createView() {
+   public function createErrorView() {
       if(!defined('max_error_lvl_show')) {
          echo $this->createMessage();
          return null;
@@ -82,23 +79,163 @@ class userErrorManager extends Exception {
          $lang = new languageManager();
          $lang->defineLanguage();
          try {
-            $view = new viewManager($this->createMessage());
-            $view->defineHeadPath('head');
-            $view->defineHeadTitle(err_err);
-            $view->defineHeadCss([array('path'=>'main', 'rel'=>'stylesheet', 'media'=>'')]);
-            $view->defineHeadJs(array('path'=>[''], 'init'=>['']));
+            $view = new viewManager();
+            $view->variable = $this->createMessage();
+            $view->head_path = 'head';
+            $view->head_title = err_err;
+            $view->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>'')];
+            $view->head_js = array('path'=>[''], 'init'=>['']);
             $view->createView('header', 'error', 'footer');
          } catch (userErrorManager $e) {
             echo $this->createMessage();
          }
          return null;
       } else {
+         echo err_default_err;
          return null;
       } 
    }
 }
 
-class languageManager {
+class userManager {
+
+   public $userInfos;
+
+   public function __construct() {
+      $this->userInfos = null;
+   }
+
+   public function checkIsLoggedIn() {
+      if(isset($_SESSION['user'])) {
+         $this->userInfos = $_SESSION['user'];
+         return true;
+      } else {
+         return false;
+      }
+   }
+
+   public function getTime() {
+      if(isset($this->userInfos['timezone'])) {
+         $datetime = new DateTime("now", new DateTimeZone($this->userInfos['timezone']));
+         return $datetime->format(dateformat);
+      } else {
+         $datetime = new DateTime("now", new DateTimeZone(default_timezone));
+         return $datetime->format(dateformat);
+      }
+   }
+
+   public function createUser($active = null, $admin = false) {
+      if(defined('reg_invitekey') && defined('reg_privatekey') && reg_invitekey == 1) {
+         $this->userInfos['privatekey'] = postManager::getPost('private_key', '/^.+$/');
+         if($this->userInfos['privatekey'] == reg_privatekey) {
+            $this->userInfos['privatekey'] = true;
+         } else {
+            $this->userInfos['privatekey'] = false;
+         }
+      } else {
+         $this->userInfos['privatekey'] = true;
+      }
+      if($this->userInfos['privatekey']) {
+         $this->userInfos['privatename'] = postManager::getPost('auth_name', '/^\w{3,18}$/');
+         $this->userInfos['publicname'] = postManager::getPost('public_name', '/^\w{2,12}$/');
+         $this->userInfos['pass'] = postManager::getPost('pass1', '/^.{6,18}$/');
+         $this->userInfos['pass2'] = postManager::getPost('pass2', '/^.{6,18}$/');
+         if(defined('reg_validation') && (int)reg_validation == 1) {
+            if($active === null) {
+               $this->userInfos['active'] = "0";
+            } elseif($active === false) {
+               $this->userInfos['active'] = "0";
+            } elseif($active === true) {
+               $this->userInfos['active'] = "1";
+            } else {
+               throw new userErrorManager(err_activevalue."!", 2);
+            }
+         } elseif(defined('reg_validation') && (int)reg_validation == 0) {
+            if($active === null) {
+               $this->userInfos['active'] = "1";
+            } elseif($active === false) {
+               $this->userInfos['active'] = "0";
+            } elseif($active === true) {
+               $this->userInfos['active'] = "1";
+            } else {
+               throw new userErrorManager(err_activevalue."!", 2);
+            }
+         } else {
+            if($active === null) {
+               $this->userInfos['active'] = "0";
+            } elseif($active === false) {
+               $this->userInfos['active'] = "0";
+            } elseif($active === true) {
+               $this->userInfos['active'] = "1";
+            } else {
+               throw new userErrorManager(err_activevalue."!", 2);
+            }
+         }
+         $verif = array_keys($this->userInfos, false, true);
+         if(count($verif) == 0 && count($this->userInfos) > 2 && $this->userInfos['pass'] == $this->userInfos['pass2']) {
+            unset($this->userInfos['pass2']);
+            try {
+               $db = new PDO('mysql:host='.db_host.';dbname='.db_name, db_user, db_pass);
+               $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+               $req = $db->prepare('SELECT user_id,
+                  CASE
+                     WHEN LOWER(user_private_name) = :private_name AND LOWER(user_public_name) = :public_name THEN 3
+                     WHEN LOWER(user_private_name) = :private_name THEN 1
+                     WHEN LOWER(user_public_name) = :public_name THEN 2
+                     ELSE 0
+                  END
+                  FROM Users WHERE LOWER(user_private_name) = :private_name OR LOWER(user_public_name) = :public_name');
+               $req->execute(array(':private_name' => strtolower($this->userInfos['privatename']), ":public_name" => strtolower($this->userInfos['publicname'])));
+               $res = $req->fetchAll();
+               $req->closeCursor();
+               $req = null;
+               $test = [false, false, false];
+               foreach($res as $line) {
+                  if($line[1] == 3) {
+                     $test[0] = true;
+                     break;
+                  } elseif($line[1] == 1) {
+                     $test[2] = true;
+                  } elseif($line[1] == 2) {
+                     $test[1] = true;
+                  }
+               }
+               $test = array_search(true, $test);
+               if($test !== false) {
+                  return 2 - $test;
+               } else {
+                  $req = $db->prepare('INSERT INTO Users (user_private_name, user_public_name, user_pass, user_active) VALUES (:private_name, :public_name, :pass, :active)');
+                  $req->execute(array(':private_name' => $this->userInfos['privatename'], ':public_name' => $this->userInfos['publicname'], ':pass' => password_hash($this->userInfos['pass'], PASSWORD_DEFAULT), ':active' => (int)$this->userInfos['active']));
+                  $req->closeCursor();
+                  $req = null;
+                  if($admin) {
+                     $req = $db->prepare('INSERT INTO Admins (admin_id) VALUES (:id)');
+                     $req->execute(array(':id' => $db->lastInsertId()));
+                     $req->closeCursor();
+                     $req = null;
+                  }
+                  return true;
+               }
+            } catch (PDOException $e) {
+               throw new userErrorManager($e->getMessage(), 2);
+            }
+         } elseif($verif == 0 && count($this->userInfos) > 2 && $this->userInfos['pass'] != $this->userInfos['pass2']) {
+            return 3;
+         } elseif(count($verif) < (count($this->userInfos) - 2)) {
+            $fields = implode(", ", $verif);
+            throw new userErrorManager(count($verif)." ".err_invalidfields.": ".$fields, 2);
+         } else {
+            $this->userInfos = [];
+            return false;
+         }
+      } else {
+         $this->userInfos = [];
+         throw new userErrorManager(err_invitekey, 1);
+      }
+   }
+}
+
+class languageManager extends userManager {
 
    public $languages;
    public $definedLanguage;
@@ -149,79 +286,6 @@ class languageManager {
          }
       }
       require_once('languages/'.$this->definedLanguage.'.php');
-   }
-}
-
-class userManager {
-
-   public $userInfos;
-
-   public function __construct() {
-      $this->userInfos = null;
-   }
-
-   public function createUser($active = false, $admin = false) {
-      $this->userInfos['privatename'] = postManager::getPost('auth_name', '/^\w{3,18}$/');
-      $this->userInfos['publicname'] = postManager::getPost('public_name', '/^\w{2,12}$/');
-      $this->userInfos['pass'] = postManager::getPost('pass1', '/^.{6,18}$/');
-      $this->userInfos['pass2'] = postManager::getPost('pass2', '/^.{6,18}$/');
-      $verif = array_filter($this->userInfos);
-      if(count($verif) == count($this->userInfos) && count($verif) > 0 && $this->userInfos['pass'] == $this->userInfos['pass2']) {
-         unset($this->userInfos['pass2']);
-         try {
-            $db = new PDO('mysql:host='.db_host.';dbname='.db_name, db_user, db_pass);
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $req = $db->prepare('SELECT user_id,
-               CASE
-                  WHEN LOWER(user_private_name) = :private_name AND LOWER(user_public_name) = :public_name THEN 3
-                  WHEN LOWER(user_private_name) = :private_name THEN 1
-                  WHEN LOWER(user_public_name) = :public_name THEN 2
-                  ELSE 0
-               END
-               FROM Users WHERE LOWER(user_private_name) = :private_name OR LOWER(user_public_name) = :public_name');
-            $req->execute(array(':private_name' => strtolower($this->userInfos['privatename']), ":public_name" => strtolower($this->userInfos['publicname'])));
-            $res = $req->fetchAll();
-            $req->closeCursor();
-            $req = null;
-            $test = [false, false, false];
-            foreach($res as $line) {
-               if($line[1] == 3) {
-                  $test[0] = true;
-                  break;
-               } elseif($line[1] == 1) {
-                  $test[2] = true;
-               } elseif($line[1] == 2) {
-                  $test[1] = true;
-               }
-            }
-            $test = array_search(true, $test);
-            if($test !== false) {
-               return 2 - $test;
-            } else {
-               $req = $db->prepare('INSERT INTO Users (user_private_name, user_public_name, user_pass, user_active) VALUES (:private_name, :public_name, :pass, :active)');
-               $req->execute(array(':private_name' => $this->userInfos['privatename'], ':public_name' => $this->userInfos['publicname'], ':pass' => password_hash($this->userInfos['pass'], PASSWORD_DEFAULT), ':active' => $active));
-               $req->closeCursor();
-               $req = null;
-               if($admin) {
-                  $req = $db->prepare('INSERT INTO Admins (admin_id) VALUES (:id)');
-                  $req->execute(array(':id' => $db->lastInsertId()));
-                  $req->closeCursor();
-                  $req = null;
-               }
-               return true;
-            }
-         } catch (PDOException $e) {
-            throw new userErrorManager($e->getMessage(), 2);
-         }
-      } elseif($this->userInfos['pass'] != $this->userInfos['pass2']) {
-         return 3;
-      } elseif(count($verif) > 0) {
-         $fields = implode(", ", array_keys($verif));
-         throw new userErrorManager(err_invalidfields.": ".$fields, 2);
-      } else {
-         $this->userInfos = [];
-         return false;
-      }
    }
 }
 

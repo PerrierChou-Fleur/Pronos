@@ -56,6 +56,9 @@ class fileManager {
             case "comment":
                $pattern = '/ \/\/'.$name.'/';
                break;
+            case "method":
+               $pattern = '/'.$name.'\((.*)\);/';
+               break;
             default:
                throw new userErrorManager("Invalid type!", 3);
          }
@@ -70,6 +73,10 @@ class fileManager {
                if(preg_match($pattern, $line, $match)) {
                   if($close) {
                      fclose($handle);
+                  }
+                  if($type == "method") {
+                     $match[1] = explode(', ', $match[1]);
+                     $match[1] = preg_replace('/\'(.*)\'/', '$1', $match[1]);
                   }
                   return $match;
                } else {
@@ -122,6 +129,11 @@ class fileManager {
          case "comment":
             $txt = "\n //".$name."\n";
             break;
+         case "method":
+            $value = array_map(function($val) { if(is_string($val)) { return "'".$val."'"; } else { return $val; }}, $value);
+            $value = implode($value, ', ');
+            $txt = $name."(".$value.");";
+            break;
          default:
             throw new userErrorManager("Invalid type !", 3);
       }
@@ -141,6 +153,9 @@ class fileManager {
                fseek($handle, $this->position_copy);
             } else {
                fseek($handle, $this->position_paste);
+            }
+            if($last_position) {
+               $txt .= "\n";
             }
             if(fwrite($handle, $txt.$contents)) {
                $update = true;

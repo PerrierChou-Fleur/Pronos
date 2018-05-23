@@ -18,6 +18,6 @@ try {
    $view->head_js = array('path'=>[], 'init'=>[]);
    $view->createView('header', 'error404notfound', 'footer');
 } catch(userErrorManager $e) {
-   $e->createView();
+   $e->createErrorView();
 }
 ?>

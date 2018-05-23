@@ -19,12 +19,14 @@ define("err_noheadpath", "Aucun chemin d'en-tête spécifié avant de créer la 
 define("err_cannotloadfile", "Impossible de charger le fichier ");
 define("err_undefinedlang", "Langue non définie ");
 define("err_undefinedtimezone", "Fuseau horaire non défini ");
+define("err_activevalue", "Valeur d'activation invalide ");
 define("err_invalidfields", "Champ(s) invalide(s) ");
 define("err_cannotlogtodb", "Impossible d'établir la connexion à la base de données, veuillez vérifier les données saisies.");
 define("err_bothnamesexist", "Les deux noms sont déjà utilisés, veuillez en choisir d'autres.");
 define("err_privatenameexists", "L'identifiant de connexion est déjà utilisé, veuillez en choisir un autre.");
 define("err_publicnameexists", "L'identifiant publique est déjà utilisé, veuillez en choisir un autre.");
 define("err_passdiff", "Le mot de passe saisi ne correspond pas à la confirmation ");
+define("err_invitekey", "Désolé vous devez posséder la clé d'enregistrement pour vous inscrire.");
 
 //installation
 define("install_config", "Configuration de l'installation");
@@ -72,4 +74,10 @@ define("form_pass1", "Choisissez votre mot de passe :");
 define("form_pass1_tip", "Votre mot de passe, de 6 à 18 caractères (tous les caractères sont autorisés).");
 define("form_pass2", "Confirmez votre mot de passe :");
 define("form_pass2_tip", "Saisissez de nouveau votre mot de passe pour confirmer que vous n'avez pas fait d'erreur de saisie.");
+
+//header
+define("header_title", "Bienvenue sur le site des Pronos de la CdM 2018");
+
+//index.php
+define("index_title", "Accueil");
 ?>
