@@ -4,11 +4,11 @@ function show_hide_psw(el) {
    let input = el.previousSibling;
    if (input.type === "password") {
       input.setAttribute("type", "text");
-      el.src = "/theme/img/not-visible.png";
-      el.alt = "hide psw";
+      el.setAttribute("src", "/theme/img/not-visible.png");
+      el.setAttribute("alt", "hide psw");
    } else {
       input.setAttribute("type", "password");
-      el.src = "/theme/img/visible.png";
-      el.alt = "show psw";
+      el.setAttribute("src", "/theme/img/visible.png");
+      el.setAttribute("alt", "hide psw");
    }
 }
