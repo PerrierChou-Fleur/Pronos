@@ -113,6 +113,13 @@ div#logon > div > p {
    font-size: 0.9em;
    padding-top: 2px;
 }
+input#menu-trigger {
+   position: absolute;
+   top: 0px;
+   left: 0px;
+   visibility: hidden;
+   z-index: -1;
+}
 div#menu {
    position: fixed;
    left: -330px;
@@ -124,7 +131,7 @@ div#menu {
    z-index: 1;
    transition: left 1s ease-out;
 }
-div#menu:target {
+input#menu-trigger:checked ~ div#menu {
    left: 0px;
 }
 div#iconmenu1 {
@@ -164,13 +171,13 @@ div#listmenu > ul > li {
    padding: 10px 0px 10px 0px;
    cursor: pointer;
 }
-a.menu {
+label.menu {
    display: inline-block;
    margin: 0px 0px 0px 0px;
    color: #606060;
 }
-a.menu:hover {
-   text-decoration: none;
+label.menu:hover {
+   cursor: pointer;
 }
 div#main {
    width: 100%;
