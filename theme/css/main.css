@@ -38,31 +38,45 @@ div#title {
 }
 div#logon {
    width: 100%;
-   height: 34px;
-   line-height: 34px;
-   text-align: right;
-   padding: 0px 0px 2px 0px;
    background-color: #E8F0FF;
    border-style: solid;
    border-color: #000000;
    border-width: 1px 0px 1px 0px;
 }
+div#logon > div {
+   display: flex;
+   flex-wrap: wrap;
+   flex-direction: row;
+   justify-content: flex-end;
+   align-items: center;
+   position: relative;
+   left: 80px;
+   min-height: 36px;
+   width: calc(100% - 80px);
+}
+div#logon > div > div {
+   padding-top: 4px;
+   padding-bottom: 6px;
+}
 form.header {
    display: inline-block;
+   white-space: nowrap;
 }
 form.header > input[type="text"] {
    border: 1px solid #CCCCCC;
    background-color: #F3F3F3;
    box-shadow: 0px 2px 4px 0px #999999;
    border-radius: 3px;
-   width: 120px;
+   width: 37%;
+   max-width: 130px;
 }
 form.header > input[type="password"] {
    border: 1px solid #CCCCCC;
    background-color: #F3F3F3;
    box-shadow: 0px 2px 4px 0px #999999;
    border-radius: 3px;
-   width: 120px;
+   width: 37%;
+   max-width: 130px;
 }
 img.psw {
    position: relative;
@@ -72,10 +86,13 @@ img.psw {
    cursor: pointer;
 }
 form.header > select {
-   height: 20px;
+   height: 21px;
    margin: 0px 8px 0px 0px;
    padding: 0px 0px 2px 0px;
+   border: 1px solid #CCCCCC;
+   background-color: #F3F3F3;
    box-shadow: 0px 2px 4px 0px #999999;
+   border-radius: 3px;
    cursor: pointer;
 }
 form.header > input[type="submit"] {
@@ -90,10 +107,11 @@ form.header > input[type="submit"] {
    box-shadow: 0px 2px 4px 0px #999999;
    cursor: pointer;
 }
-div#logon > p {
+div#logon > div > p {
    display: inline-block;
-   margin: 0px 8px 0px 8px;
+   margin: 0px 16px 0px 8px;
    font-size: 0.9em;
+   padding-top: 2px;
 }
 div#menu {
    position: fixed;
@@ -133,7 +151,7 @@ div#iconmenu2 {
    text-align: right;
 }
 div#listmenu {
-   height: 1800px;
+   height: 100vh;
    width: 100%;
 }
 div#listmenu > ul {
