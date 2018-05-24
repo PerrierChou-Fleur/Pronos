@@ -1,7 +1,7 @@
  /* pass_form.js */
 
 function show_hide_psw(el) {
-   let input = el.previousSibling.previousSibling;
+   let input = el.previousSibling;
    if (input.type === "password") {
       input.setAttribute("type", "text");
       el.src = "/theme/img/not-visible.png";
