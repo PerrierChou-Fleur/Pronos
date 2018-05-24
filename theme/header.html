@@ -3,18 +3,24 @@
    <div id="header">
       <div id="title"><h1><?php echo header_title; ?></h1></div>
       <div id="logon">
-         <form method="post" action="/index.html" class="header" name="login" id="login">
-            <input type="text" name="auth_name" id="auth_name" maxlength="18" placeholder="username" pattern="^\w{3,18}$" required>
-            <input type="password" name="pass" id="pass" maxlength="18" placeholder="password" pattern="^.{6,18}$" required><img class="psw" src="/theme/img/visible.png" alt="show psw" width="16" height="16" onClick="show_hide_psw(this)">
-            <input type="submit" value=" >">
-         </form>
-         <p id="datetime"><?php echo $this->variable['datetime']; ?></p>
-         <form method="post" action="/index.html" class="header" name="language" id="language">
-            <select name="default_lang">
-<?php foreach($this->getLanguages() as $value) { if($value == $this->definedLanguage) { $selected = " selected"; } else { $selected = ""; } echo "                        <option value=\"".$value."\"".$selected.">".Locale::getDisplayLanguage($value, $value)." - ".Locale::getDisplayRegion($value, $value)."</option>\n"; } ?>
-            </select>
-            <input type="submit" value=" >">
-         </form>
+         <div>
+            <div class="psw">
+               <form method="post" action="/index.html" class="header" name="login" id="login">
+                  <input type="text" name="auth_name" id="auth_name" maxlength="18" placeholder="username" pattern="^\w{3,18}$" required>
+                  <input type="password" name="pass" id="pass" maxlength="18" placeholder="password" pattern="^.{6,18}$" required><img class="psw" src="/theme/img/visible.png" alt="show psw" width="16" height="16" onClick="show_hide_psw(this)">
+                  <input type="submit" value=" >">
+               </form>
+            </div>
+            <p id="datetime"><?php echo $this->variable['datetime']; ?></p>
+            <div>
+               <form method="post" action="/index.html" class="header" name="language" id="language">
+                  <select name="default_lang">
+<?php foreach($this->getLanguages() as $value) { if($value == $this->definedLanguage) { $selected = " selected"; } else { $selected = ""; } echo "                              <option value=\"".$value."\"".$selected.">".Locale::getDisplayLanguage($value, $value)." - ".Locale::getDisplayRegion($value, $value)."</option>\n"; } ?>
+                  </select>
+                  <input type="submit" value=" >">
+               </form>
+            </div>
+         </div>
       </div>
       <div id="menu">
          <div id="iconmenu2"><a href="#" class="menu">&nbsp;&nbsp;&nbsp;X&nbsp;&nbsp;&nbsp;</a></div>
