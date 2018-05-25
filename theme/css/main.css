@@ -186,11 +186,15 @@ div#listmenu > ul > li {
    margin: -1px 0px 0px 0px;
    padding: 5px 0px 10px 0px;
    width: calc(100% - 2px);
+   background-color: #D3D3D3;
    border-radius: 5px;
    border-color: #999999;
    border-width: 1px 1px 1px 1px;
    border-style: solid;
    border-collapse: collapse;
+}
+div#listmenu > ul > li:hover {
+   background-color: #E2E2E2;
    cursor: pointer;
 }
 label.menu {
