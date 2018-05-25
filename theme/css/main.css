@@ -65,7 +65,7 @@ form.header {
 form.header > input[type="text"] {
    border: 1px solid #CCCCCC;
    background-color: #F3F3F3;
-   box-shadow: 0px 2px 4px 0px #999999;
+   box-shadow: 1px 2px 4px 0px #999999;
    border-radius: 3px;
    width: 37%;
    max-width: 130px;
@@ -73,7 +73,7 @@ form.header > input[type="text"] {
 form.header > input[type="password"] {
    border: 1px solid #CCCCCC;
    background-color: #F3F3F3;
-   box-shadow: 0px 2px 4px 0px #999999;
+   box-shadow: 1px 2px 4px 0px #999999;
    border-radius: 3px;
    width: 37%;
    max-width: 130px;
@@ -91,7 +91,7 @@ form.header > select {
    padding: 0px 0px 2px 0px;
    border: 1px solid #CCCCCC;
    background-color: #F3F3F3;
-   box-shadow: 0px 2px 4px 0px #999999;
+   box-shadow: 1px 2px 4px 0px #999999;
    border-radius: 3px;
    cursor: pointer;
 }
@@ -104,7 +104,7 @@ form.header > input[type="submit"] {
    color: rgba(255, 255, 255, 0.9);
    border: 1px solid #3CBC8D;
    background-color: #3CBC8D;
-   box-shadow: 0px 2px 4px 0px #999999;
+   box-shadow: 1px 2px 4px 0px #999999;
    cursor: pointer;
 }
 div#logon > div > p {
@@ -124,9 +124,11 @@ div#menu {
    position: fixed;
    left: -330px;
    top: 0px;
+   height: 100vh;
    max-width: 320px;
    background-color: #E8E8E8;
-   box-shadow: 10px 0px 10px #666666;
+   border-radius: 0px 5px 5px 0px;
+   box-shadow: 10px 8px 10px #666666;
    overflow: hidden;
    z-index: 1;
    transition: left 1s ease-out;
@@ -163,7 +165,7 @@ div#iconmenu2 {
    padding: 0px 0px 4px 1px;
    text-align: center;
    background-color: #D3D3D3;
-   box-shadow: 0px 2px 4px 0px #999999;
+   box-shadow: 0px 2px 4px 0px #999999 inset;
    border-radius: 5px;
    border-color: #999999;
    border-width: 1px 1px 1px 1px;
@@ -177,8 +179,8 @@ div#iconmenu2:active {
    box-shadow: 0px 1px 2px 0px;
 }
 div#listmenu {
-   margin-top: 40px;
-   height: 100vh;
+   margin-top: 80px;
+   height: 100%;
    width: 100%;
 }
 div#listmenu > ul {
