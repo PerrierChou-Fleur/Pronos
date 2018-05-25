@@ -141,7 +141,7 @@ div#iconmenu1 {
    height: 30px;
    line-height: 30px;
    text-align: center;
-   background-color: #E8E8E8;
+   background-color: #D3D3D3;
    box-shadow: 0px 2px 4px 0px #999999;
    border-radius: 5px;
    border-color: #999999;
@@ -149,8 +149,11 @@ div#iconmenu1 {
    border-style: solid;
    transition: box-shadow 0.25s ease;
 }
+div#iconmenu1:hover {
+   background-color: #E2E2E2;
+}
 div#iconmenu1:active {
-   box-shadow: 0px 2px 4px 0px #EEDD33;
+   box-shadow: 0px 2px 4px 0px;
 }
 div#iconmenu2 {
    float: right;
@@ -159,7 +162,7 @@ div#iconmenu2 {
    margin: 3px 3px 0px 0px;
    padding: 0px 0px 4px 1px;
    text-align: center;
-   background-color: #E8E8E8;
+   background-color: #D3D3D3;
    box-shadow: 0px 2px 4px 0px #999999;
    border-radius: 5px;
    border-color: #999999;
@@ -167,8 +170,11 @@ div#iconmenu2 {
    border-style: solid;
    transition: box-shadow 0.25s ease;
 }
+div#iconmenu2:hover {
+   background-color: #E2E2E2;
+}
 div#iconmenu2:active {
-   box-shadow: 0px 2px 4px 0px #EEDD33;
+   box-shadow: 0px 2px 4px 0px;
 }
 div#listmenu {
    margin-top: 40px;
