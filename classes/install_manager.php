@@ -47,8 +47,8 @@ class installManager extends viewManager {
       $this->head_path = 'notitle-head';
       $this->head_title = '';
       $this->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'form-slidein', 'rel'=>'stylesheet', 'media'=>'')];
-      $this->head_js = array('path'=>['animation_form', 'timezone_form'], 'init'=>['animationForm();', 'timezone();']);
-      return $this->createView('install-header', 'install-langform', 'footer');
+      $this->head_js = array('path'=>['main', 'animation_form', 'timezone_form'], 'init'=>["changeDate('".dateformat."');", 'animationForm();', 'timezone();']);
+      return $this->createView('header', 'install-langform', 'footer');
    }
 
    public function getLang() {
@@ -81,8 +81,8 @@ class installManager extends viewManager {
       $this->head_path = 'notitle-head';
       $this->head_title = '';
       $this->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'form-slidein', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'large-tooltip', 'rel'=>'stylesheet', 'media'=>'')];
-      $this->head_js = array('path'=>['animation_form', 'pass_form'], 'init'=>['animationForm();']);
-      return $this->createView('install-header', 'install-dbform', 'footer');
+      $this->head_js = array('path'=>['main', 'animation_form', 'pass_form'], 'init'=>["changeDate('".dateformat."');", 'animationForm();']);
+      return $this->createView('header', 'install-dbform', 'footer');
    }
 
    public function getDbInfos() {
@@ -122,8 +122,8 @@ class installManager extends viewManager {
       $this->head_path = 'head';
       $this->head_title = install_config;
       $this->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'form-slidein', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'large-tooltip', 'rel'=>'stylesheet', 'media'=>'')];
-      $this->head_js = array('path'=>['animation_form', 'pass_form'], 'init'=>['animationForm();']);
-      return $this->createView('install-header', 'install-adminform', 'footer');
+      $this->head_js = array('path'=>['main', 'animation_form', 'pass_form'], 'init'=>["changeDate('".dateformat."');", 'animationForm();']);
+      return $this->createView('header', 'install-adminform', 'footer');
    }
 
    public function getAdminInfos() {
@@ -141,8 +141,8 @@ class installManager extends viewManager {
       $this->head_path = 'head';
       $this->head_title = install_config;
       $this->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'form-slidein', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'large-tooltip', 'rel'=>'stylesheet', 'media'=>'')];
-      $this->head_js = array('path'=>['animation_form'], 'init'=>['animationForm();']);
-      return $this->createView('install-header', 'install-registerform', 'footer');
+      $this->head_js = array('path'=>['main', 'animation_form'], 'init'=>["changeDate('".dateformat."');", 'animationForm();']);
+      return $this->createView('header', 'install-registerform', 'footer');
    }
 
    public function getRegisterInfos() {
@@ -172,8 +172,8 @@ class installManager extends viewManager {
       $this->head_path = 'head';
       $this->head_title = install_config;
       $this->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>''), array('path'=>'form-slidein', 'rel'=>'stylesheet', 'media'=>'')];
-      $this->head_js = array('path'=>[], 'init'=>[]);
-      return $this->createView('install-header', 'install-completed', 'footer');
+      $this->head_js = array('path'=>['main'], 'init'=>["changeDate('".dateformat."');"]);
+      return $this->createView('header', 'install-completed', 'footer');
    }
 }
 ?>

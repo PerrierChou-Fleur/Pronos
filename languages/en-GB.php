@@ -27,6 +27,8 @@ define("err_privatenameexists", "Login ID is already used, please choose another
 define("err_publicnameexists", "Public ID is already used, please choose another one.");
 define("err_passdiff", "The password doesn't match with the confirmation");
 define("err_invitekey", "Sorry you must have the registration key to register.");
+define("err_useractive", "Sorry, this account is pending activation or has been disabled");
+define("err_userpass", "Sorry, the couple username / password is wrong");
 
 //setup
 define("install_config", "Setup");
@@ -77,6 +79,10 @@ define("form_pass2_tip", "Enter your password again to confirm that you have not
 
 //header
 define("header_title", "Welcome on the website of the 2018 CdM Prognoses");
+define("header_authname", "username");
+define("header_password", "password");
+define("header_welcome", "Welcome");
+define("header_signout", "Sign out");
 
 //index.php
 define("index_title", "Home");

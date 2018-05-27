@@ -53,6 +53,7 @@ form.slideout {
    width: 100%;
    max-width: 600px;
    margin-left: 0;
+   animation: formslideout 500ms ease-out 0s 1 normal forwards running;
 }
 div.slidein {
    width: 100%;
@@ -60,48 +61,48 @@ div.slidein {
    margin-left: 0;
    animation: formslidein 500ms ease-out 0s 1 normal forwards running;
 }
-form.slidein > div > ul {
+form#animatedForm > div > ul {
    list-style-type: none;
    padding: 0px 0px 0px 0px;
 }
-form.slidein > div > ul > li {
+form#animatedForm > div > ul > li {
    margin: 4px 4px 8px 4px;
 }
-form.slidein > div > ul > li:nth-child(even) {
+form#animatedForm > div > ul > li:nth-child(even) {
    margin-left: 30px;
    margin-bottom: 18px;
 }
-form.slidein > div > ul > li:last-child {
+form#animatedForm > div > ul > li:last-child {
    margin: 4px 4px 80px 30px;
 }
-form.slidein > div > ul.final > li:last-child {
+form#animatedForm > div > ul.final > li:last-child {
    margin: 40px 0px 40px 0px;
 }
-form.slidein input[type="text"] {
+form#animatedForm input[type="text"] {
    border: 1px solid #CCCCCC;
    background-color: #F3F3F3;
    box-shadow: 0px 2px 4px 0px #999999;
    border-radius: 3px;
    min-width: 180px;
 }
-form.slidein input[type="password"] {
+form#animatedForm input[type="password"] {
    border: 1px solid #CCCCCC;
    background-color: #F3F3F3;
    box-shadow: 0px 2px 4px 0px #999999;
    border-radius: 3px;
    min-width: 180px;
 }
-form.slidein input[type="radio"] {
+form#animatedForm input[type="radio"] {
    border: 1px solid #CCCCCC;
    background-color: #F3F3F3;
    box-shadow: 0px 2px 4px 0px #999999;
    border-radius: 3px;
    width: 16px;
 }
-form.slidein input[type="radio"]:nth-child(even) {
+form#animatedForm input[type="radio"]:nth-child(even) {
    margin-left: 30px;
 }
-form.slidein input[type="submit"] {
+form#animatedForm input[type="submit"] {
    border: 1px solid #3CBC8D;
    background-color: #3CBC8D;
    box-shadow: 0px 2px 4px 0px #999999;

@@ -9,6 +9,8 @@
    /* class userManager */
        //__construct
        //checkIsLoggedIn
+       //connectUser
+       //disconnectUser
        //createUser
 
    /* class languageManager */
@@ -80,7 +82,7 @@ class userErrorManager extends Exception {
          $lang->defineLanguage();
          try {
             $view = new viewManager();
-            $view->variable = $this->createMessage();
+            $view->variable['err_message'] = $this->createMessage();
             $view->head_path = 'head';
             $view->head_title = err_err;
             $view->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>'')];
@@ -118,9 +120,55 @@ class userManager {
       if(isset($this->userInfos['timezone'])) {
          $datetime = new DateTime("now", new DateTimeZone($this->userInfos['timezone']));
          return $datetime->format(dateformat);
-      } else {
+      } elseif(defined('default_timezone')) {
          $datetime = new DateTime("now", new DateTimeZone(default_timezone));
          return $datetime->format(dateformat);
+      } else {
+         $datetime = new DateTime("now");
+         return $datetime->format(dateformat);
+      }
+   }
+
+   public function connectUser() {
+      $auth_name = postManager::getPost('auth_name', '/^\w{3,18}$/');
+      $pass = postManager::getPost('pass', '/^.{6,18}$/');
+      if($auth_name !== false && $pass !== false) {
+         try {
+            $db = new PDO('mysql:host='.db_host.';dbname='.db_name, db_user, db_pass);
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $req = $db->prepare('SELECT * FROM Users WHERE user_private_name = :private_name');
+            $req->execute(array(':private_name' => $auth_name));
+            $res = $req->fetch(PDO::FETCH_ASSOC);
+            $req->closeCursor();
+            $req = null;
+            if($res['user_active'] == 0) {
+               throw new userErrorManager(err_useractive."!", 1);
+            } elseif(password_verify($pass, $res['user_pass'])) {
+               $this->userInfos['id'] = $res['user_id'];
+               $this->userInfos['privatename'] = $res['user_private_name'];
+               $this->userInfos['publicname'] = $res['user_public_name'];
+               $this->userInfos['lang'] = $res['user_lang'];
+               $this->userInfos['timezone'] = $res['user_timezone'];
+               $_SESSION['user'] = $this->userInfos;
+               return true;
+            } else {
+               throw new userErrorManager(err_userpass."!", 1);
+            }
+         } catch (PDOException $e) {
+            throw new userErrorManager($e->getMessage(), 2);
+         }
+      }
+   }
+
+   public function disconnectUser() {
+      $signout = postManager::getPost('signout', '/^\d$/');
+      if($signout == 1) {
+         $this->userInfos = null;
+         $_SESSION['user'] = null;
+         unset($_SESSION['user']);
+         return true;
+      } else {
+         return false;
       }
    }
 

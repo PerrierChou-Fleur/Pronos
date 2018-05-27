@@ -1,0 +1,27 @@
+
+<body onLoad="jawascript();">
+   <div id="header">
+      <div id="title"><h1><?php echo header_title; ?></h1></div>
+      <div id="logon">
+         <div>
+            <p id="welcome"><?php echo header_welcome." "; ?> <span><?php echo $this->userInfos['privatename']; ?></span> !</p>
+            <form method="post" action="/index.html" class="header" name="disconnect" id="disconnect">
+               <label for="signout"><?php echo header_signout; ?></label>
+               <input name="signout" type="hidden" value="1">
+               <input type="submit" value="loggout" id="signout">
+            </form>
+            <p id="datetime"><?php echo $this->getTime(); ?></p>
+         </div>
+      </div>
+      <input type="checkbox" id="menu-trigger">
+      <div id="menu">
+         <div id="iconmenu2"><label class="menu" for="menu-trigger">X</label></div>
+         <div id="listmenu">
+            <a href="/index.html" class="menu"<?php if($this->variable['currentpage'] && $this->variable['currentpage'] == "index") { echo ' id="current-menu"';} ?>><?php echo index_title; ?></a>
+            <a href="/menu2.html" class="menu">Menu 2</a>
+            <a href="/menu3.html" class="menu">Menu 3</a>
+            <a href="/menu4.html" class="menu">Menu 4</a>
+         </div>
+      </div>
+      <div id="iconmenu1"><label class="menu" for="menu-trigger">&nbsp;&nbsp;&nbsp;Menu&nbsp;&nbsp;&nbsp;</label></div>
+   </div>

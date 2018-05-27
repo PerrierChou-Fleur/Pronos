@@ -1,11 +1,11 @@
  /* main.css */
 
-html {
+/* general */
+html, body {
    font-size: 100%;
-}
-body {
    margin: 0px 0px 0px 0px;
    width: 100%;
+   height: 100%;
    color: #606060;
    font-size: 1em;
    text-shadow: 1px 2px 3px #BBBBBB;
@@ -18,7 +18,7 @@ a {
    color: #3366ff;
    text-decoration: none;
 }
-a:hover {
+a:hover, a:focus {
    text-decoration: underline;
 }
 h1 {
@@ -29,6 +29,12 @@ h2 {
    font-size: 1.1em;
    padding: 0.4em 0em 0.8em 0em;
 }
+p {
+   font-size: 1em;
+   text-shadow: 1px 2px 3px #BBBBBB;
+}
+
+/* header */
 div#title {
    width: 100%;
    height: 120px;
@@ -53,14 +59,15 @@ div#logon > div {
    left: 80px;
    min-height: 36px;
    width: calc(100% - 80px);
-}
-div#logon > div > div {
-   padding-top: 4px;
-   padding-bottom: 6px;
+   overflow-x: hidden;
 }
 form.header {
    display: inline-block;
    white-space: nowrap;
+   margin: 0px 0px 0px 0px;
+}
+form#login {
+   margin: 0px -20px 0px -12px;
 }
 form.header > input[type="text"] {
    border: 1px solid #CCCCCC;
@@ -99,7 +106,7 @@ form.header > input[type="submit"] {
    border-radius: 3px;
    width: 30px;
    height: 20px;
-   margin: 0px 8px 0px 0px;
+   margin: 0px 0px 0px 0px;
    padding: 0px 2px 2px 0px;
    color: rgba(255, 255, 255, 0.9);
    border: 1px solid #3CBC8D;
@@ -107,16 +114,63 @@ form.header > input[type="submit"] {
    box-shadow: 1px 2px 4px 0px #999999;
    cursor: pointer;
 }
+div#logon > div > * {
+   display: inline-block;
+   margin: 3px -1px 3px 0px;
+   padding: 0px 12px 2px 12px;
+   border-style: solid;
+   border-width: 0px 1px 0px 0px;
+   border-color: #000000;
+}
 div#logon > div > p {
    display: inline-block;
-   margin: 0px 16px 0px 8px;
-   font-size: 0.9em;
-   padding-top: 2px;
+   margin: 3px -1px 3px 0px;
+   padding: 4px 12px 1px 12px;
+   border-style: solid;
+   border-width: 0px 1px 0px 0px;
+   border-color: #000000;
 }
+div#logon > div > *:last-child {
+   margin: 3px 0px 3px 0px;
+   border-style: none;
+   border-width: 0px 0px 0px 0px;
+}
+p#welcome {
+   font-size: 1.05em;
+}
+p#welcome > span {
+   font-weight: 600;
+   text-decoration: underline;
+}
+form#disconnect > label {
+   color: #3366ff;
+}
+form#disconnect > label:hover, form#disconnect > label:focus {
+   text-decoration: underline;
+   cursor: pointer;
+}
+form.header > input#signout {
+   position: absolute;
+   top: 0px;
+   left: 0px;
+   width: 0px;
+   height: 0px;
+   opacity: 0;
+   visibility: hidden;
+   z-index: -1;
+}
+p#datetime {
+   font-size: 0.9em;
+}
+
+/* menu */
 input#menu-trigger {
    position: absolute;
    top: 0px;
    left: 0px;
+   width: 0px;
+   height: 0px;
+   opacity: 0;
    visibility: hidden;
    z-index: -1;
 }
@@ -151,7 +205,7 @@ div#iconmenu1 {
    border-style: solid;
    transition: box-shadow 0.25s ease;
 }
-div#iconmenu1:hover {
+div#iconmenu1:hover, div#iconmenu1:focus {
    background-color: #E2E2E2;
 }
 div#iconmenu1:active {
@@ -172,28 +226,25 @@ div#iconmenu2 {
    border-style: solid;
    transition: box-shadow 0.25s ease;
 }
-div#iconmenu2:hover {
+div#iconmenu2:hover, div#iconmenu2:focus {
    background-color: #E2E2E2;
 }
 div#iconmenu2:active {
    box-shadow: 0px 1px 2px 0px;
 }
 div#listmenu {
-   margin-top: 80px;
+   margin: 80px 2px 0px 2px;
    height: 100%;
-   width: 100%;
-}
-div#listmenu > ul {
-   margin: 0px 0px 0px 0px;
-   padding: 0px 2px 0px 2px;
    min-width: 160px;
    text-align: center;
-   list-style-type: none;
 }
-div#listmenu > ul > li {
+a.menu {
+   display: block;
    margin: -1px 0px 0px 0px;
    padding: 5px 0px 10px 0px;
    width: calc(100% - 2px);
+   color: #606060;
+   text-decoration: none;
    background-color: #D3D3D3;
    border-radius: 5px;
    border-color: #999999;
@@ -201,9 +252,13 @@ div#listmenu > ul > li {
    border-style: solid;
    border-collapse: collapse;
 }
-div#listmenu > ul > li:hover {
+a.menu:hover, a.menu:focus {
    background-color: #E2E2E2;
-   cursor: pointer;
+}
+a#current-menu {
+   font-weight: bold;
+   background-color: #E2E2E2;
+   box-shadow: 0px 0px 6px 2px #999999 inset;
 }
 label.menu {
    display: inline-block;
@@ -216,14 +271,21 @@ div#iconmenu2 > label.menu {
    margin: 0px 0px 0px 0px;
    padding: 0px 0px 0px 0px;
 }
-label.menu:hover {
+label.menu:hover, label.menu:focus {
    cursor: pointer;
 }
-div#main {
+
+/* main content */
+div.main {
    width: 100%;
    overflow: hidden;
 }
+
+/* footer */
 div#footer {
+   position: sticky;
+   left: 0px;
+   top: 100%;
    width: 100%;
    height: 80px;
    background-color: #F4F9FF;

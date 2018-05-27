@@ -1,5 +1,5 @@
 
-   <div id="main">
+   <div class="main">
       <div id="install_form">
          <form method="post" action="/install.html" class="slidein" id="animatedForm">
             <div class="welcome">
@@ -10,7 +10,7 @@
                   <li><label for="default_lang"><?php echo install_lang; ?></label></li>
                   <li>
                      <select name="default_lang" required>
-<?php foreach($this->getLanguages() as $value) { echo "                        <option value=\"".$value."\">".Locale::getDisplayLanguage($value, $value)." - ".Locale::getDisplayRegion($value, $value)."</option>\n"; } ?>
+<?php foreach($this->getLanguages() as $value) { echo "                        <option value=\"".$value."\">".ucfirst(Locale::getDisplayLanguage($value, $value))." - ".Locale::getDisplayRegion($value, $value)."</option>\n"; } ?>
                      </select>
                   </li>
                   <li><label for="default_timezone"><?php echo install_timezone; ?></label></li>

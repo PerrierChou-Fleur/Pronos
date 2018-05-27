@@ -27,6 +27,8 @@ define("err_privatenameexists", "L'identifiant de connexion est déjà utilisé,
 define("err_publicnameexists", "L'identifiant publique est déjà utilisé, veuillez en choisir un autre.");
 define("err_passdiff", "Le mot de passe saisi ne correspond pas à la confirmation ");
 define("err_invitekey", "Désolé vous devez posséder la clé d'enregistrement pour vous inscrire.");
+define("err_useractive", "Désolé, ce compte est en attente d'activation ou a été désactivé ");
+define("err_userpass", "Désolé, mauvais couple identifiant / mot de passe ");
 
 //installation
 define("install_config", "Configuration de l'installation");
@@ -77,6 +79,10 @@ define("form_pass2_tip", "Saisissez de nouveau votre mot de passe pour confirmer
 
 //header
 define("header_title", "Bienvenue sur le site des Pronos de la CdM 2018");
+define("header_authname", "identifiant");
+define("header_password", "mot de passe");
+define("header_welcome", "Bienvenue");
+define("header_signout", "Se déconnecter");
 
 //index.php
 define("index_title", "Accueil");

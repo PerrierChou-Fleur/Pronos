@@ -40,7 +40,8 @@ function updateDate(el, datetimediff, dateformat) {
             hour = hour - 12;
          } else if(hour == 0) {
             hour = 12;
-         } else if(hour < 10) {
+         }
+         if(hour < 10) {
             hour = "0" + hour;
          }
          el.textContent = day + "/" + month + "/" + year + " " + hour + ":" + minute + ":" + second + a;
@@ -56,7 +57,8 @@ function updateDate(el, datetimediff, dateformat) {
             hour = hour - 12;
          } else if(hour == 0) {
             hour = 12;
-         } else if(hour < 10) {
+         }
+         if(hour < 10) {
             hour = "0" + hour;
          }
          el.textContent = month + "/" + day + "/" + year + " " + hour + ":" + minute + ":" + second + a;
