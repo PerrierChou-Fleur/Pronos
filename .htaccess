@@ -1,6 +1,7 @@
 Options +FollowSymLinks -Indexes
 RewriteEngine On
 ErrorDocument 404 /error404.php
-RewriteRule ^([^.]+).php$ /error404.html [L]
+RewriteRule ^$ /index.html [L]
+RewriteRule ^[^.]+.php$ /error404.html [L]
 RewriteRule ^([^.]+).php/([^/]+)/([^.]+).html$ $1.php?$2=$3 [END]
 RewriteRule ^([^.]+).html$ $1.php [END]
