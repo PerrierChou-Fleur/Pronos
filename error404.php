@@ -15,7 +15,7 @@ try {
    $view->head_path = 'head404';
    $view->head_title = err_404;
    $view->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>'')];
-   $view->head_js = array('path'=>[], 'init'=>[]);
+   $view->head_js = array('path'=>['main'], 'init'=>["changeDate('".dateformat."');"]);
    $view->createView('header', 'error404notfound', 'footer');
 } catch(userErrorManager $e) {
    $e->createErrorView();
