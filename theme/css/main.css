@@ -42,6 +42,10 @@ div#title {
    background-color: #E8F0FF;
    overflow: hidden;
 }
+div#title > a {
+   color: #606060;
+   text-decoration: none;
+}
 div#logon {
    width: 100%;
    background-color: #E8F0FF;

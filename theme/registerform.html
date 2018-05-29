@@ -1,31 +1,35 @@
 
    <div class="main">
-      <div id="install_form">
-         <form method="post" action="/install.html" class="slidein" id="animatedForm">
-            <div class="install_explanation">
-               <h2><?php echo install_admin_explanation; ?></h2>
+      <div id="register_form">
+         <form method="post" action="/register<?php if(isset($_GET['private_key'])) { echo '/private_key/'.$_GET['private_key']; } ?>.html" class="slidein" id="animatedForm">
+            <div class="register_explanation">
+               <h2><?php echo register_explanation; ?></h2>
 <?php
-if($this->variable) {
-   switch($this->variable !== false) {
+if(!isset($_GET['private_key']) && reg_invitekey == "1") {
+   echo "               <p class=\"form_error\">".form_privatekey."</p>\n";
+}
+if($this->variable['userExists'] !== false) {
+   switch($this->variable['userExists']) {
       case 0: 
-         $this->variable = err_privatenameexists;
+         $this->variable['userExists'] = err_privatenameexists;
          break; 
       case 1:
-         $this->variable = err_publicnameexists;
+         $this->variable['userExists'] = err_publicnameexists;
          break;
       case 2:
-         $this->variable = err_bothnamesexist;
+         $this->variable['userExists'] = err_bothnamesexist;
          break;
       case 3:
-         $this->variable = err_passdiff."!";
+         $this->variable['userExists'] = err_passdiff."!";
          break;
       default:
-         $this->variable = "";
+         $this->variable['userExists'] = "";
    }
-   echo "               <p class=\"form_error\">".$this->variable."</p>\n";
+   echo "               <p class=\"form_error\">".$this->variable['userExists']."</p>\n";
 }
 ?>
                <hr>
+               <input type="hidden" name="name" value="register">
                <ul class="final">
                   <li><label for="auth_name"><?php echo form_authname; ?></label></li>
                   <li><input type="text" name="auth_name" id="auth_name" maxlength="18" pattern="^\w{3,18}$" required> <div class="tooltip"><img class="tooltip" src="/theme/img/help.png" alt=" ? " width="16" height="16"><div class="tooltipbox"><p><?php echo form_authname_tip; ?></p></div></div></li>

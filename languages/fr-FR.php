@@ -76,6 +76,7 @@ define("form_pass1", "Choisissez votre mot de passe :");
 define("form_pass1_tip", "Votre mot de passe, de 6 à 18 caractères (tous les caractères sont autorisés).");
 define("form_pass2", "Confirmez votre mot de passe :");
 define("form_pass2_tip", "Saisissez de nouveau votre mot de passe pour confirmer que vous n'avez pas fait d'erreur de saisie.");
+define("form_privatekey", "Attention, vous devez posséder la clé d'enregistrement pour pouvoir vous inscrire.");
 
 //header
 define("header_title", "Bienvenue sur le site des Pronos de la CdM 2018");
@@ -86,4 +87,8 @@ define("header_signout", "Se déconnecter");
 
 //index.php
 define("index_title", "Accueil");
+
+//register.php
+define("register_title", "S'enregistrer");
+define("register_explanation", "Créez votre compte.");
 ?>

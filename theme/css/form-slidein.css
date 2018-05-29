@@ -8,7 +8,17 @@ div.install_explanation {
    width: 100%;
    text-align: center;
 }
+div.register_explanation {
+   width: 100%;
+   text-align: center;
+}
 div#install_form {
+   width: 96%;
+   min-width: 320px;
+   margin: auto;
+   text-align: center;
+}
+div#register_form {
    width: 96%;
    min-width: 320px;
    margin: auto;
@@ -16,6 +26,14 @@ div#install_form {
 }
 @media only screen and (min-width: 600px) {
    div#install_form {
+      width: 100%;
+      min-width: 400px;
+      padding-left: calc(0.2 * (100% - 600px));
+      text-align: center;
+   }
+}
+@media only screen and (min-width: 600px) {
+   div#register_form {
       width: 100%;
       min-width: 400px;
       padding-left: calc(0.2 * (100% - 600px));

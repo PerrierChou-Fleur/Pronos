@@ -25,6 +25,9 @@
    /* class postManager */
        //getPost
 
+   /* class getManager */
+       //getGet
+
    /* class cookieManager */
        //
 
@@ -86,7 +89,7 @@ class userErrorManager extends Exception {
             $view->head_path = 'head';
             $view->head_title = err_err;
             $view->head_css = [array('path'=>'main', 'rel'=>'stylesheet', 'media'=>'')];
-            $view->head_js = array('path'=>[''], 'init'=>['']);
+            $view->head_js = array('path'=>['main'], 'init'=>["changeDate('".dateformat."');"]);
             $view->createView('header', 'error', 'footer');
          } catch (userErrorManager $e) {
             echo $this->createMessage();
@@ -161,8 +164,8 @@ class userManager {
    }
 
    public function disconnectUser() {
-      $signout = postManager::getPost('signout', '/^\d$/');
-      if($signout == 1) {
+      $signout = postManager::getPost('name', '/^signout$/');
+      if($signout !== false) {
          $this->userInfos = null;
          $_SESSION['user'] = null;
          unset($_SESSION['user']);
@@ -174,7 +177,7 @@ class userManager {
 
    public function createUser($active = null, $admin = false) {
       if(defined('reg_invitekey') && defined('reg_privatekey') && reg_invitekey == 1) {
-         $this->userInfos['privatekey'] = postManager::getPost('private_key', '/^.+$/');
+         $this->userInfos['privatekey'] = getManager::getGET('private_key', '/^.+$/');
          if($this->userInfos['privatekey'] == reg_privatekey) {
             $this->userInfos['privatekey'] = true;
          } else {
@@ -351,6 +354,17 @@ class postManager {
    public static function getPost($var, $pattern) {
       if(isset($_POST[$var]) && preg_match($pattern, $_POST[$var])) {
          return $_POST[$var];
+      } else {
+         return false;
+      }
+   }
+}
+
+class getManager {
+
+   public static function getGET($var, $pattern) {
+      if(isset($_GET[$var]) && preg_match($pattern, $_GET[$var])) {
+         return $_GET[$var];
       } else {
          return false;
       }

@@ -9,19 +9,19 @@ require_once('classes/file_manager.php');
 
 try {
    $view = new viewManager();
-   if(isset($_POST['auth_name']) || isset($_POST['pass'])) {
+   if(isset($_POST['name']) && $_POST['name'] == "login") {
       $view->defineLanguage();
       $user = new userManager();
       if($user->connectUser() === true) {
-         header('Location: index.html');
+         header('Location: /index.html');
       }
-   } elseif(isset($_POST['default_lang'])) {
+   } elseif(isset($_POST['name']) && $_POST['name'] == "language") {
       
-   } elseif(isset($_POST['signout'])) {
+   } elseif(isset($_POST['name']) && $_POST['name'] == "signout") {
       $view->defineLanguage();
       $user = new userManager();
       if($user->disconnectUser()) {
-        header('Location: index.html');
+        header('Location: /index.html');
       } 
    } elseif($view->checkIsLoggedIn() === true) {
       $view->defineLanguage();

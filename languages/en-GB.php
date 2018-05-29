@@ -76,6 +76,7 @@ define("form_pass1", "Choose a password:");
 define("form_pass1_tip", "Your password, from 6 to 18 characters (all characters are allowed).");
 define("form_pass2", "Confirm your password:");
 define("form_pass2_tip", "Enter your password again to confirm that you have not made a typing error.");
+define("form_privatekey", "Be careful, you must have the registration key to be able to register.");
 
 //header
 define("header_title", "Welcome on the website of the 2018 CdM Prognoses");
@@ -86,4 +87,8 @@ define("header_signout", "Sign out");
 
 //index.php
 define("index_title", "Home");
+
+//register.php
+define("register_title", "Registration");
+define("register_explanation", "Create your account.");
 ?>

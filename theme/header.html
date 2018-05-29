@@ -1,11 +1,12 @@
 
 <body onLoad="jawascript();">
    <div id="header">
-      <div id="title"><h1><?php echo header_title; ?></h1></div>
+      <div id="title"><a href="/"><h1><?php echo header_title; ?></h1></a></div>
       <div id="logon">
          <div>
             <div>
                <form method="post" class="header" name="login" id="login">
+                  <input type="hidden" name="name" value="login">
                   <input type="text" name="auth_name" id="auth_name" maxlength="18" placeholder="<?php echo header_authname; ?>" pattern="^\w{3,18}$" required>
                   <input type="password" name="pass" id="pass" maxlength="18" placeholder="<?php echo header_password; ?>" pattern="^.{6,18}$" required><img class="psw" src="/theme/img/visible.png" alt="show psw" width="16" height="16" onClick="show_hide_psw(this)">
                   <input type="submit" value=" >">
@@ -14,6 +15,7 @@
             <p id="datetime"><?php echo $this->getTime(); ?></p>
             <div>
                <form method="post" class="header" name="language" id="language">
+                  <input type="hidden" name="name" value="language">
                   <select name="default_lang">
 <?php foreach($this->getLanguages() as $value) { if($value == $this->definedLanguage) { $selected = " selected"; } else { $selected = ""; } echo "                              <option value=\"".$value."\"".$selected.">".ucfirst(Locale::getDisplayLanguage($value, $value))." - ".Locale::getDisplayRegion($value, $value)."</option>\n"; } ?>
                   </select>
@@ -27,7 +29,7 @@
          <div id="iconmenu2"><label class="menu" for="menu-trigger">X</label></div>
          <div id="listmenu">
             <a href="/index.html" class="menu"<?php if($this->variable['currentpage'] && $this->variable['currentpage'] == "index") { echo ' id="current-menu"';} ?>><?php echo index_title; ?></a>
-            <a href="/menu2.html" class="menu">Menu 2</a>
+            <a href="/register.html" class="menu"<?php if($this->variable['currentpage'] && $this->variable['currentpage'] == "register") { echo ' id="current-menu"';} ?>><?php echo register_title; ?></a>
             <a href="/menu3.html" class="menu">Menu 3</a>
             <a href="/menu4.html" class="menu">Menu 4</a>
          </div>

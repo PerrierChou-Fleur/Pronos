@@ -7,8 +7,8 @@
             <p id="welcome"><?php echo header_welcome." "; ?> <span><?php echo $this->userInfos['privatename']; ?></span> !</p>
             <form method="post" action="/index.html" class="header" name="disconnect" id="disconnect">
                <label for="signout"><?php echo header_signout; ?></label>
-               <input name="signout" type="hidden" value="1">
-               <input type="submit" value="loggout" id="signout">
+               <input type="hidden" name="name" value="signout">
+               <input type="submit" id="signout">
             </form>
             <p id="datetime"><?php echo $this->getTime(); ?></p>
          </div>
