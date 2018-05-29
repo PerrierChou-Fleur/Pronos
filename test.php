@@ -1,7 +1,7 @@
 <?php
  #test.php#
 
-if(isset($_GET['param'])) {
-   echo $_GET['param'];
+if(isset($_GET)) {
+   var_dump($_GET);
 }
 ?>

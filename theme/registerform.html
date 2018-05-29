@@ -8,7 +8,7 @@
 if(!isset($_GET['private_key']) && reg_invitekey == "1") {
    echo "               <p class=\"form_error\">".form_privatekey."</p>\n";
 }
-if($this->variable['userExists'] !== false) {
+if(isset($this->variable['userExists']) && $this->variable['userExists'] !== false) {
    switch($this->variable['userExists']) {
       case 0: 
          $this->variable['userExists'] = err_privatenameexists;

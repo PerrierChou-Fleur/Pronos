@@ -78,7 +78,7 @@ function installLoop($install_cfg) {
             $install_cfg->fileUpdate('constant', "reg_validation", $register_form->registerInfos['validation']);
             $install_cfg->fileUpdate('constant', "reg_invitekey", $register_form->registerInfos['private_key']);
             $key = new DateTime("now");
-            $install_cfg->fileUpdate('constant', "reg_privatekey", addcslashes(password_hash($key->format('YFjlGisu'), PASSWORD_DEFAULT), '$'));
+            $install_cfg->fileUpdate('constant', "reg_privatekey", str_replace(['$', '/'], ['£', '~'], password_hash($key->format('YFjlGisu'), PASSWORD_DEFAULT)));
             $install_cfg->fileUpdate('constant', "reg_recaptcha", $register_form->registerInfos['recaptcha']);
             $install_cfg->fileUpdate('constant', "recaptcha_publickey", $register_form->registerInfos['recaptcha_publickey']);
             $install_cfg->fileUpdate('constant', "recaptcha_privatekey", $register_form->registerInfos['recaptcha_privatekey']);
